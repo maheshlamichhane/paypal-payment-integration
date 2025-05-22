@@ -23,10 +23,7 @@ import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @RequiredArgsConstructor
@@ -202,10 +199,23 @@ public class PayPalApiHandler {
         PaypalTransaction transaction = new PaypalTransaction();
         transaction.setOrderId(root.path(Constants.ID).asText());
         transaction.setStatus(root.path(Constants.STATUS).asText());
-        transaction.setAmount(root.path(Constants.PURCHASE_UNITS).get(0).path(Constants.AMOUNT).path(Constants.VALUE).asText());
-        transaction.setBuyerEmail( root.path(Constants.PAYER).path(Constants.EMAIL_ADDRESS).asText());
-        transaction.setSellerEmail(root.path(Constants.PURCHASE_UNITS).get(0).path(Constants.PAYEE).path(Constants.EMAIL_ADDRESS).asText());
-        transaction.setCreatedAt(root.path(Constants.CREATE_TIME).asText());
+        transaction.setAmount(root.path(Constants.PURCHASE_UNITS)
+                .get(0)
+                .path(Constants.PAYMENTS)
+                .path(Constants.AUTHORIZATIONS)
+                .get(0)
+                .path(Constants.AMOUNT)
+                .path(Constants.VALUE)
+                .asText());
+        transaction.setBuyerId(root.path(Constants.PAYER)
+                .path(Constants.PAYER_ID)
+                .asText());
+        transaction.setSellerEmail(root
+                .path(Constants.PAYMENT_SOURCE)
+                .path(Constants.PAYPAL)
+                .path(Constants.EMAIL_ADDRESS)
+                .asText());
+        transaction.setCreatedAt(new Date().toString());
         return transaction;
     }
 

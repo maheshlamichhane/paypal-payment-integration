@@ -43,4 +43,10 @@ public class Constants {
     public static final String ADMIN = "ADMIN";
     public static final String CUSTOMER = "CUSTOMER";
 
+    public static final String PAYMENTS = "payments";
+    public static final String AUTHORIZATIONS = "authorizations";
+    public static final String PAYER_ID = "payer_id";
+    public static final String PAYPAL = "paypal";
+    public static final String PAYMENT_SOURCE = "payment_source";
+
 }

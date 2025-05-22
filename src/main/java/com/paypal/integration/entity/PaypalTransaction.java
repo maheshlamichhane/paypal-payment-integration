@@ -23,8 +23,8 @@ public class PaypalTransaction {
     @Column
     private String amount;
 
-    @Column(name = "buyer_email")
-    private String buyerEmail;
+    @Column(name = "buyer_id")
+    private String buyerId;
 
     @Column(name = "seller_email")
     private String sellerEmail;
